@@ -1,11 +1,10 @@
 #Objective of this file is to analyse a face
-print("Chargement du modèle...")
+print("Load model...")
 import numpy as np
 from utils import *
 from config import emotions, input_shape, modelName
 
 model = tf.keras.models.load_model("models/"+modelName)	#Load our model
-#model = tf.saved_model.load("models/"+modelName)
 
 print('Model used:', modelName)
 

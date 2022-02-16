@@ -56,11 +56,3 @@ def selectFace(image):
         x,y,w,h = faces[0]
         face = image[y:y+h, x:x+w]
         return face
-
-#Some tests here.
-# image = cv2.imread("cagnol.jpg", 1)  #Load Cagnol colored image
-# imageProcess(image)
-# cv2.imshow("Cagnol", image)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
-

@@ -1,15 +1,28 @@
-## Projet de détection d'expression faciales
+# Facial emotion detection and classification project
 
-### Description :
+## Description :
 
-Le projet a pour but de construire un programme pour détecter les visages et leurs émotions associées depuis une image ou une vidéo prise en temps réelle. Les visages sont détectés et classifiés parmi 7 émotions : Angry, Disgust, Fear, Happy, Sad, Surprise et Neutral.
+Computer vision project aiming to detect and classify faces into 7 categories : Angry, Disgust, Fear, Happy, Sad, Surprise et Neutral.
 
-### Fichiers python à lancer :
+The program use Cascade from CV2 to detect faces.
+Faces are classified thanks to a CNN model inspired by VGG trained by myself.
+I used several datasets for training my model.
 
-videoCapture.py : prend une vidéo en entrée, traite chaque frame avec imageProcess.py et renvoie la vidéo traitée ainsi. Les visages sont détectés et classifiés.
+## Python files to run :
 
-game.py : lance une capture de la vidéo et des smileys à imiter le plus rapidement possible.
-Paramètres de game(): 
-    - playTime : durée du jeu   
-    - dt_required : délai durant lequel l'émotion doit être reconnue en continu pour être validée
-    - n_photos : nombre de photos souvenirs que le modèle prendra pendant le jeu, affichées à la fin
+You may need to install requirements using command ```pip install -r requirements.txt```
+
+
+### run_videoCapture.py
+Capture a video from your camera, detect faces and classify them.\
+
+### run_game.py  
+Start a game. You will have to mimic emotions displayed as fast as possible. You win 1 point for each emotion mimicked.\
+
+Press "Q" to quit the game. Press "P" to pass the emotion (but you lose 1 point).\
+
+Parameters of game(): 
+
+    - playTime : duration of the game.
+    - dt_required : duration required for maintaining emotion on screen to validate emotion.
+    - n_photos : the program will temporaly save n_photos of you during the game, and then display them at the end.

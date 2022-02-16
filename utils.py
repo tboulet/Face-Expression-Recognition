@@ -1,7 +1,6 @@
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
-from config import emotions
 import tensorflow as tf
 
 
@@ -18,7 +17,6 @@ def afficher(image):
 
 def predir(modele, image):
     # Return output of image from modele
-    #return modele.predict(np.array([image]))[0, :]
     return modele(np.array([image]))[0, :]
 
 def normAndResize(image, input_shape):
@@ -26,7 +24,6 @@ def normAndResize(image, input_shape):
 
     h, l, p = input_shape
     # resize for h and l     
-    # print(image.shape)                                  #
     image = cv2.resize(image, dsize=(h, l), interpolation=cv2.INTER_CUBIC)
     # if we want (h,l,3) -> (h,l,1) , we first transform it in to (h,l) (grey the image)
     if len(image.shape) == 3 and p == 1 and image.shape[2] != 1:
