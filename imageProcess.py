@@ -12,7 +12,6 @@ def imageProcess(image, writeEmotion=True, writeRectangle=True, returnEmotion=Fa
 
     #Import faces and eyes detectors from cv2
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
-    eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_eye.xml')
 
     #CV2 detection is made on gray pictures
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)

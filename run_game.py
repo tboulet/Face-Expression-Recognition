@@ -29,6 +29,7 @@ def game(playTime = 30, dt_required=0.5, n_photos=None, invincibleFrame=0.5):
 
 
     cap = cv2.VideoCapture(0)   #0 means we capture the first camera, your webcam probably
+    cv2.namedWindow("Camera",cv2.WINDOW_NORMAL)
     score = 0       
 
     timeScoring = time.time()   #last instant an emotion was found.
@@ -69,6 +70,7 @@ def game(playTime = 30, dt_required=0.5, n_photos=None, invincibleFrame=0.5):
 
         #Modify and show photos
         smiley = smileyNeutral.copy()
+        cv2.setWindowProperty('Camera', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
         cv2.imshow("Camera", frame)  			#Show you making emotional faces
         cv2.putText(smiley, "Score: "+str(score), (40,40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)
         cv2.putText(smiley, "Timer: "+str(round(time.time()-timeInitial, 1)), (20,240), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,0,0), 2)
