@@ -22,13 +22,17 @@ You may need to install requirements using command ```pip install -r requirement
 ### run_videoCapture.py
 Capture a video from your camera, detect faces and classify them.
 
+    python run_videoCapture.py
+
 ### run_game.py  
 Start a game. You will have to mimic emotions displayed as fast as possible. You win 1 point for each emotion mimicked.
 
+    python run_game.py -p time_play -m time_maintain -s nbr_screen
+
 Press "Q" to quit the game. Press "P" to pass the emotion (but you lose 1 point).
 
-Parameters of game(): 
+Options of game(): 
 
-    - playTime : duration of the game.
-    - dt_required : duration required for maintaining emotion on screen to validate emotion.
-    - n_photos : the program will temporaly save n_photos of you during the game, and then display them at the end.
+    - p : duration of the game.
+    - m : duration required for maintaining emotion on screen to validate emotion.
+    - s : the program will temporaly save s of you during the game, and then display them at the end.
