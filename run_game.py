@@ -1,3 +1,6 @@
+import argparse
+
+
 def smileyRandom(emotionToDodge):
     #Return a random smiley and the emotion associated
 
@@ -13,11 +16,11 @@ def smileyRandom(emotionToDodge):
     return smiley, emotion
 
 
-def game(playTime = 30, dt_required=0.5, n_photos=None, invincibleFrame=0.5):
+def game(time_play = 30, time_maintain=0.5, screen=0, invincibleFrame=0.5):
     '''Play a game.
-    playTime : duration of the game.
-    dt_required : duration required for maintaining emotion on screen to validate emotion.
-    n_photos : the program will temporaly save n_photos of you during the game, and then display them at the end.
+    time_play : duration of the game.
+    time_maintain : duration required for maintaining emotion on screen to validate emotion.
+    screen : number of screen the program will temporaly save of you during the game, and then display them at the end.
     invincibleFrame : time during you can't score any point if you already scored one before.
     '''
 
@@ -52,7 +55,7 @@ def game(playTime = 30, dt_required=0.5, n_photos=None, invincibleFrame=0.5):
         emotionsList = ip.imageProcess(frame, returnEmotion=True)
         
         
-        if time.time()-timeSinceOtherEmotions > dt_required:    #If emotions maintained for dt seconds, score is increased and a new smiley is generated
+        if time.time()-timeSinceOtherEmotions > time_maintain:    #If emotions maintained for dt seconds, score is increased and a new smiley is generated
             score += 1
             smiley, emotion = smileyRandom(emotion)
             smileyNeutral = smiley.copy()
@@ -80,10 +83,10 @@ def game(playTime = 30, dt_required=0.5, n_photos=None, invincibleFrame=0.5):
 
 
         #Save temporarily photo:
-        if n_photos is not None:
-            if time.time()-timeLastPhoto > playTime/(n_photos+1):
+        if screen > 0:
+            if time.time()-timeLastPhoto > time_play/(screen+1):
                 timeLastPhoto = time.time()
-                photos.append(frame)
+                screen.append(frame)
 
         #Stop game if Q pressd or time exceed play time.
         if cv2.waitKey(1) & 0xFF == ord('q'):			#If you press Q, stop the while and so the capture
@@ -97,14 +100,14 @@ def game(playTime = 30, dt_required=0.5, n_photos=None, invincibleFrame=0.5):
             timeSinceOtherEmotions = time.time()
         
 
-        elif time.time() - timeInitial > playTime:
+        elif time.time() - timeInitial > time_play:
             break
 
     cap.release()
     cv2.destroyAllWindows()
 
-    print(f"Game ended ! You mimicked {score} emotions in {playTime} seconds !")
-    if n_photos is not None:
+    print(f"Game ended ! You mimicked {score} emotions in {time_play} seconds !")
+    if screen > 0:
         print("Some photos of your performance :")
         for photo in photos:
             plt.imshow(photo)
@@ -113,4 +116,10 @@ def game(playTime = 30, dt_required=0.5, n_photos=None, invincibleFrame=0.5):
             plt.show()
 
 if __name__ == "__main__":
-    game(playTime=60, dt_required=0.3, n_photos=5)
+    parser = argparse.ArgumentParser(description='Game of Facial Emotion Recognition')
+    parser.add_argument('-p','--time-play', help='Duration of the game', required=False, default = 60, type=int)
+    parser.add_argument('-m','--time-maintain', help='Duration required for maintaining emotion on screen to validate emotion', required=False, default = 0.3, type = float)
+    parser.add_argument('-s','--screen', help='Number of photos screen during the game ', required=False, default = 0, type = int)
+    args = vars(parser.parse_args())
+    args["invincibleFrame"] = 0.5
+    game(**args)
